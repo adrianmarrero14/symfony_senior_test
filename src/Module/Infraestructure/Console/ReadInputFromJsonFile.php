@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use App\Module\Application\InputFileReader\JsonInputFileReader;
 use App\Module\Application\DataInputMapper\JsonDataInputMapper;
 use App\Module\Application\CarInsuranceCreator\CarInsuranceCreatorByJson;
+use App\Module\Application\DataOutputMapper\XMLDataOutputMapper;
 
 
 #[AsCommand(    
@@ -26,6 +27,7 @@ class ReadInputFromJsonFile extends Command
         private JsonInputFileReader $jsonInputFileReader,
         private JsonDataInputMapper $jsonDataInputMapper,
         private CarInsuranceCreatorByJson $carInsuranceCreator,
+        private XMLDataOutputMapper $XMLDataOutputMapper, 
     ) {
         parent::__construct();
     }
@@ -50,10 +52,9 @@ class ReadInputFromJsonFile extends Command
         $carInsuranceEntity = $this->carInsuranceCreator->__invoke($jsonParameterEntryModel);
 
         // Mapping xml output
-        $xml = '<XML></XML>';
+        $xml = $this->XMLDataOutputMapper->__invoke($carInsuranceEntity);
 
         // Echo XML
-        var_dump($carInsuranceEntity);
         $output->writeln($xml);
 
         return Command::SUCCESS;
