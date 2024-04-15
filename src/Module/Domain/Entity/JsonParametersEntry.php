@@ -11,20 +11,20 @@ final class JsonParametersEntry implements ParametersEntryInterface
     private string $car_brand;
     private string $holder;
     private string $occasionalDriver;
-    private string $prevInsurance_contractDate;
+    private string $prevInsurance_years;
     private string $prevInsurance_expirationDate;
     
     public function __construct(
         string $car_brand,
         string $holder,
         string $occasionalDriver,
-        string $prevInsurance_contractDate,
+        string $prevInsurance_years,
         string $prevInsurance_expirationDate,
     ){
         $this->car_brand = $car_brand;
         $this->holder = $holder;
         $this->occasionalDriver = $occasionalDriver;
-        $this->prevInsurance_contractDate = $prevInsurance_contractDate;
+        $this->prevInsurance_years = $prevInsurance_years;
         $this->prevInsurance_expirationDate = $prevInsurance_expirationDate;
     }
 
@@ -48,38 +48,20 @@ final class JsonParametersEntry implements ParametersEntryInterface
         return date("c");
     }
 
-    // ValueObject: Calculate number of years from ???
-    // NUMBER OF YEARS AS *FULL YEARS*
-    // OPTIONS:
-    // prevInsurance_contractDate
-    // prevInsurance_expirationDate
-    // prevInsurance_years
-    // prevInsurance_companyYear
     public function calculateNumberOfYears(): int
     {   
-        $numberOfYears = 0;
-        
-        if($this->prevInsurance_contractDate){
-            $datePrevious = date("Y", strtotime($this->prevInsurance_contractDate));
-            $currentYear = date('Y');
-            $numberOfYears = $currentYear - $datePrevious;
-        }
-
-        return $numberOfYears;
+        return $this->prevInsurance_years ? intval($this->prevInsurance_years) : 0;
     }
 
-    // NUMBER OF ADITIONAL DRIVERS: ???
-    // OPTIONS:
-    // If occasionalDriver == "SI" ? 1 : 0
     public function getNumberOfAditionalDrivers(): int
     {
-        return $this->occasionalDriver == "SI" ? 1 : 0;
+        $aditionalDrivers = 0;
+
+        $this->occasionalDriver == "SI" ? $aditionalDrivers++ : null;
+
+        return $aditionalDrivers;
     }
 
-    // PREVIOUS INSURANCE IS VALID: ???
-    // ValueObject: Calculate if is not expired and if is yes
-    // OPTIONS:
-    // prevInsurance_expirationDate
     public function validPreviousInsurance(): string
     {
         $is_valid = "N";
@@ -87,7 +69,6 @@ final class JsonParametersEntry implements ParametersEntryInterface
         if($this->prevInsurance_expirationDate){
             $dateExpiration = date("c", strtotime($this->prevInsurance_expirationDate));
             $currentDate = date("c");
-
             $is_valid = strtotime($currentDate) >= strtotime($dateExpiration) ? "S" : "N";
         }
 
