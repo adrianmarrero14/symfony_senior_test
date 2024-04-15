@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Module\Infraestructure\Console;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -7,6 +9,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+
+use App\Module\Application\InputFileReader\JsonInputFileReader;
 
 #[AsCommand(    
     name: 'app:read-file',
@@ -16,6 +20,7 @@ use Symfony\Component\Console\Input\InputArgument;
 class ReadInputFromJsonFile extends Command
 {
     public function __construct(
+        private JsonInputFileReader $jsonInputFileReader, 
     ) {
         parent::__construct();
     }
@@ -28,6 +33,10 @@ class ReadInputFromJsonFile extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Read Input Argument
+        $file_name = $input->getArgument('file_name');
+
+        // Read Json File
+        $file_content = $this->jsonInputFileReader->__invoke($file_name);
 
         // Read Json File
 
@@ -39,7 +48,7 @@ class ReadInputFromJsonFile extends Command
         $xml = '<XML></XML>';
 
         // Echo XML
-        $output->writeln($xml);
+        $output->writeln($file_content);
 
         return Command::SUCCESS;
     }
