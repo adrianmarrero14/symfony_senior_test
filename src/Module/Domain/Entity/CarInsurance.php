@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Module\Domain\Entity;
 
 use App\Module\Domain\Interface\CarInsuranceInterface;
@@ -11,7 +13,7 @@ final class CarInsurance implements CarInsuranceInterface
     private string $FecCot;
     private int $AnosSegAnte;
     private int $NroCondOca;
-    private bool $SeguroEnVigor;
+    private string $SeguroEnVigor;
 
     public function __construct(
         string $CondPpalEsTomador, 
@@ -19,7 +21,7 @@ final class CarInsurance implements CarInsuranceInterface
         string $FecCot, 
         int $AnosSegAnte, 
         int $NroCondOca, 
-        bool $SeguroEnVigor,
+        string $SeguroEnVigor,
     ){
         $this->CondPpalEsTomador = $CondPpalEsTomador;
         $this->ConductorUnico = $ConductorUnico;
