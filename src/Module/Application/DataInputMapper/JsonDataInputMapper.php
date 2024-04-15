@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Application\DataInputMapper;
 
-use App\Module\Domain\Entity\JsonParametersEntry;
+use App\Module\Domain\Model\JsonParametersEntry;
 use App\Shared\SerializerHelper;
 
 final class JsonDataInputMapper

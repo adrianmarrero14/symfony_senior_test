@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Domain\Entity;
+namespace App\Module\Domain\Model;
 
 use App\Module\Domain\Interface\CarInsuranceInterface;
 

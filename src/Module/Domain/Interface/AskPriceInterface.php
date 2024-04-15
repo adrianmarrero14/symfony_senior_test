@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Domain\Interface;
 
-use App\Module\Domain\Entity\CarInsurance;
+use App\Module\Domain\Model\CarInsurance;
 
 interface AskPriceInterface 
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Module\Application\CarInsuranceCreator;
 
-use App\Module\Domain\Entity\CarInsurance;
-use App\Module\Domain\Entity\JsonParametersEntry;
+use App\Module\Domain\Model\CarInsurance;
+use App\Module\Domain\Model\JsonParametersEntry;
 
 class CarInsuranceCreatorByJson
 {

@@ -48,11 +48,11 @@ class ReadInputFromJsonFile extends Command
         // Mapping json input
         $jsonParameterEntryModel = $this->jsonDataInputMapper->__invoke($file_content);
 
-        // Mapping JsonParametersEntryEntity to CarInsuranceEntity
-        $carInsuranceEntity = $this->carInsuranceCreator->__invoke($jsonParameterEntryModel);
+        // Mapping JsonParametersEntryModel to CarInsuranceModel
+        $carInsuranceModel = $this->carInsuranceCreator->__invoke($jsonParameterEntryModel);
 
         // Mapping xml output
-        $xml = $this->XMLDataOutputMapper->__invoke($carInsuranceEntity);
+        $xml = $this->XMLDataOutputMapper->__invoke($carInsuranceModel);
 
         // Echo Output
         $file_name = $file_name ?? "old_holder_with_second_young_driver.json";

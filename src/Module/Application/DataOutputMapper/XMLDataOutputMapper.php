@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Module\Application\DataOutputMapper;
 
-use App\Module\Domain\Entity\CarInsurance;
+use App\Module\Domain\Model\CarInsurance;
 use App\Shared\SerializerHelper;
 
 final class XMLDataOutputMapper
