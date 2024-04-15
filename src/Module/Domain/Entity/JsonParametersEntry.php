@@ -82,9 +82,15 @@ final class JsonParametersEntry implements ParametersEntryInterface
     // prevInsurance_expirationDate
     public function validPreviousInsurance(): string
     {
-        $dateExpiration = date("c", strtotime($this->prevInsurance_expirationDate));
-        $currentDate = date("c");
+        $is_valid = "N";
 
-        return $currentDate >= $dateExpiration ? "S" : "N";
+        if($this->prevInsurance_expirationDate){
+            $dateExpiration = date("c", strtotime($this->prevInsurance_expirationDate));
+            $currentDate = date("c");
+
+            $is_valid = strtotime($currentDate) >= strtotime($dateExpiration) ? "S" : "N";
+        }
+
+        return $is_valid;
     }
 }

@@ -54,7 +54,14 @@ class ReadInputFromJsonFile extends Command
         // Mapping xml output
         $xml = $this->XMLDataOutputMapper->__invoke($carInsuranceEntity);
 
-        // Echo XML
+        // Echo Output
+        $file_name = $file_name ?? "old_holder_with_second_young_driver.json";
+
+        $output->writeln("***************************************");
+        $output->writeln("** Json File Name: " . $file_name);
+        $output->writeln("***************************************");
+        $output->writeln("** XML output for you API call:");
+        $output->writeln("***************************************");
         $output->writeln($xml);
 
         return Command::SUCCESS;
