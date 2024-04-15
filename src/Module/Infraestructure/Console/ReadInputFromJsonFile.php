@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 use App\Module\Application\InputFileReader\JsonInputFileReader;
+use App\Module\Application\DataInputMapper\JsonDataInputMapper;
+
 
 #[AsCommand(    
     name: 'app:read-file',
@@ -20,7 +22,8 @@ use App\Module\Application\InputFileReader\JsonInputFileReader;
 class ReadInputFromJsonFile extends Command
 {
     public function __construct(
-        private JsonInputFileReader $jsonInputFileReader, 
+        private JsonInputFileReader $jsonInputFileReader,
+        private JsonDataInputMapper $jsonDataInputMapper,
     ) {
         parent::__construct();
     }
@@ -39,6 +42,7 @@ class ReadInputFromJsonFile extends Command
         $file_content = $this->jsonInputFileReader->__invoke($file_name);
 
         // Read Json File
+        $jsonParameterEntryModel = $this->jsonDataInputMapper->__invoke($file_content);
 
         // Mapping json input
 
@@ -48,7 +52,8 @@ class ReadInputFromJsonFile extends Command
         $xml = '<XML></XML>';
 
         // Echo XML
-        $output->writeln($file_content);
+        var_dump($jsonParameterEntryModel);
+        $output->writeln($xml);
 
         return Command::SUCCESS;
     }
